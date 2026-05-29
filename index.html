@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenWhip Creator</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="site-shell">
+      <nav class="top-nav" aria-label="Primary">
+        <a class="brand" href="#hero" aria-label="OpenWhip Creator">
+          <span class="brand-glyph"></span>
+          <span>OpenWhip Creator</span>
+        </a>
+        <div class="nav-links">
+          <a href="#upload">效果预览</a>
+          <a href="#design">自定义内容</a>
+          <a href="#export">生成作品</a>
+        </div>
+        <div class="nav-meta">
+          <span>DIY 角色</span>
+          <span>可分享作品</span>
+        </div>
+      </nav>
+
+      <section id="hero" class="hero-section">
+        <div class="hero-copy">
+          <p class="eyebrow">AI 等待反馈 DIY 工具</p>
+          <h1>把等待 AI 的焦躁，<br />做成你的专属互动反馈。</h1>
+          <p class="hero-lede">
+            上传一张你喜欢的角色、图标或道具，设置它的动作、颜色和催促话术。以后等待 AI 思考时，就能用快捷键或关键词触发一个可见、好玩、可演示的小反馈。
+          </p>
+          <div class="hero-actions">
+            <a class="pill-button dark" href="#upload">开始制作 <span>→</span></a>
+            <a class="pill-button light" href="#design">编辑触发方式</a>
+          </div>
+          <div class="hero-rating">
+            <span>✦ ✦ ✦ ✦ ✦</span>
+            <span>先看示例，再换成你的素材</span>
+          </div>
+        </div>
+
+        <div class="hero-whip-card">
+          <div class="whip-card-head">
+            <div>
+              <span class="micro-label">示例作品</span>
+              <strong>红色鞭子反馈</strong>
+            </div>
+            <button class="round-button" type="button" data-scroll-target="#export" aria-label="前往导出">↗</button>
+          </div>
+          <div class="fixed-whip-stage" aria-label="固定红色鞭子展示">
+            <canvas id="heroWhipCanvas" width="360" height="360"></canvas>
+            <div class="fixed-whip-copy">
+              <span>Option + A</span>
+              <strong>第一鞭，先醒醒。</strong>
+            </div>
+          </div>
+          <div class="hero-status-row" aria-label="固定展示说明">
+            <span>红色状态</span>
+            <span>快速抽动</span>
+            <span>不打断任务</span>
+          </div>
+        </div>
+
+        <div class="hero-wordmark" aria-hidden="true">OPENWHIP</div>
+      </section>
+
+      <section class="flow-section" aria-labelledby="flow-title">
+        <p class="section-kicker">制作流程</p>
+        <h2 id="flow-title">三步做出一个<br />专属等待反馈。</h2>
+        <div class="flow-pills">
+          <button type="button" class="flow-pill" data-scroll-target="#hero">看示例</button>
+          <button type="button" class="flow-pill accent" data-scroll-target="#upload">传图片</button>
+          <button type="button" class="flow-pill" data-scroll-target="#design">设触发</button>
+          <button type="button" class="flow-pill arrow" data-scroll-target="#export">生成</button>
+        </div>
+      </section>
+
+      <section id="upload" class="creator-section two-column">
+        <div class="section-copy">
+          <p class="section-kicker">01 / 上传你的素材</p>
+          <h2>把一张图片变成你的反馈角色。</h2>
+          <p>
+            上传角色、表情包、产品图或图标，系统会生成适合演示的像素风预览，并自动套用 6 种颜色状态。
+          </p>
+        </div>
+
+        <div class="simulation-stack">
+          <div class="panel upload-panel">
+            <label class="drop-zone" for="imageInput">
+              <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" />
+              <span class="drop-title">Drop PNG / JPG / WEBP</span>
+              <span class="drop-hint">上传后马上生成你的角色预览，首页示例鞭子不会被替换。</span>
+            </label>
+            <div class="control-grid">
+              <label>
+                作品名
+                <input id="projectName" type="text" value="我的反馈作品" />
+              </label>
+              <label>
+                分享名
+                <input id="repoName" type="text" value="my-feedback-kit" />
+              </label>
+              <label>
+                角色昵称
+                <input id="characterName" type="text" value="OpenWhip" />
+              </label>
+              <label>
+                像素风强度
+                <input id="pixelSize" type="range" min="3" max="14" value="7" />
+              </label>
+            </div>
+          </div>
+
+          <div class="hero-preview-card simulation-preview-card">
+            <div class="preview-card-head">
+              <div>
+                <span class="micro-label">实时效果预览</span>
+                <strong id="statusText">先上传一张图片试试</strong>
+              </div>
+              <button class="round-button" type="button" data-scroll-target="#design" aria-label="前往按钮配置">↘</button>
+            </div>
+            <div class="stage-window hero-stage">
+              <div class="cursor-dot"></div>
+              <div id="spritePreview" class="sprite-preview waving">
+                <canvas id="previewCanvas" width="192" height="208"></canvas>
+              </div>
+              <div id="bubblePreview" class="bubble-preview">第一鞭，先醒醒，别让我干等。</div>
+            </div>
+            <div class="swatch-row" id="swatchRow" aria-label="颜色预览"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="design" class="creator-section">
+        <div class="section-split-head">
+          <div>
+            <p class="section-kicker">02 / 设置触发方式</p>
+            <h2>给每个按钮安排一个情绪动作。</h2>
+          </div>
+          <p>
+            你可以为 6 个快捷键设置不同关键词、动作和提示语。比如“快一点”触发橙色跳动，“别卡了”触发蓝色抖动，“检查一下”触发收尾动作。
+          </p>
+        </div>
+        <div id="slotList" class="slot-list"></div>
+      </section>
+
+      <section id="export" class="export-section">
+        <div class="export-card">
+          <div>
+            <p class="section-kicker">03 / 生成可分享作品</p>
+            <h2>生成你的互动反馈作品包。</h2>
+            <p>
+              下载后可以分享给别人参考，也可以继续改造成自己的 AI 等待反馈小工具。文件里只包含你设置的图片、关键词、动作和话术。
+            </p>
+          </div>
+          <div class="export-list">
+            <span>作品说明</span>
+            <span>触发规则</span>
+            <span>角色素材</span>
+            <span>演示脚本</span>
+          </div>
+          <button id="downloadBtn" class="download-action" type="button">下载我的作品包 <span>↓</span></button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
